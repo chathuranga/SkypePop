@@ -49,8 +49,6 @@ namespace MySlide
             var grip = new SliderGrip();
             Size desktopSize = Screen.PrimaryScreen.WorkingArea.Size;
             grip.Location = new Point(desktopSize.Width - 2, desktopSize.Height - 210);
-            //var grip = new Test();
-            //var grip = new SkypePopDialog();
             Application.Run(grip);
         }
 

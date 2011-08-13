@@ -130,6 +130,7 @@
     <Compile Include="SlideDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utility.cs" />
     <EmbeddedResource Include="Resources\background.png" />
     <None Include="Resources\exit.png" />
     <Content Include="Resources\hide.png" />
