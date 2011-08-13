@@ -1,0 +1,1 @@
+regsvr32 lib\Skype4COM.dll
