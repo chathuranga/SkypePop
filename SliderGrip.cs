@@ -33,7 +33,6 @@ namespace MySlide
 
         private void SliderGrip_MouseHover(object sender, EventArgs e)
         {
-            _oSlideForm.SlideDirection = SlideDialog.SLIDE_DIRECTION.LEFT;
             _oSlideForm.Slide(false);
             _oSlideForm.FocusOut();
         }

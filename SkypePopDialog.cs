@@ -28,24 +28,35 @@ namespace SkypePop
             // Listen 
             _skype.MessageStatus += skype_MessageStatus;
             _chats = _skype.ActiveChats;
-            for (int i = 1; i < _chats.Count + 1; i++)
-            {
-                string chatName = _chats[i].FriendlyName;
-                if (chatName.IndexOf("|") > 0)
-                    chatName = chatName.Substring(0, chatName.IndexOf("|") - 1);
-                cmbActiveChats.Items.Add(chatName);
-            }
+            RefreshActiveChats();
             if (_chats.Count > 0)
             {
                 cmbActiveChats.SelectedIndex = 0;
-                _currentChat = _chats[1];
             }
+
+            SlideDirection = SlideDialog.SLIDE_DIRECTION.LEFT;
         }
         
         public void FocusOut()
         {
             //cmbActiveChats.Focus();
             btnHide.Focus();
+        }
+
+        private void RefreshActiveChats()
+        {
+            var currentlySelected = cmbActiveChats.Text;
+            cmbActiveChats.Items.Clear();
+            for (int i = 1; i < _chats.Count + 1; i++)
+            {
+                string chatName = GetChatName(_chats[i].FriendlyName);
+                cmbActiveChats.Items.Add(chatName);
+                if (chatName == currentlySelected)
+                {
+                    cmbActiveChats.SelectedIndex = i - 1;
+                }
+            }
+            SetSelected(currentlySelected);
         }
 
         private void skype_MessageStatus(ChatMessage msg, TChatMessageStatus status)
@@ -57,16 +68,8 @@ namespace SkypePop
                 int index = IndexOf(msg.Chat);
                 if (index == -1)
                 {
-                    string chatName = msg.Chat.FriendlyName;
-                    if (chatName.IndexOf("|") > 0)
-                        chatName = chatName.Substring(0, chatName.IndexOf("|") - 1);
-                    cmbActiveChats.Items.Add(chatName);
-                    //cmbActiveChats.SelectedIndex = cmbActiveChats.Items.Count - 1;
+                    RefreshActiveChats();
                 }
-                //else
-                //{
-                //    cmbActiveChats.SelectedIndex = index;
-                //}
             }
         }
 
@@ -84,20 +87,7 @@ namespace SkypePop
 
         private void cmbActiveChats_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 1; i < _chats.Count + 1; i++)
-            {
-                string chatName = _chats[i].FriendlyName;
-                if (chatName.IndexOf("|") > 0)
-                    chatName = chatName.Substring(0, chatName.IndexOf("|") - 1);
-                if (chatName == cmbActiveChats.Text)
-                {
-                    //if (!txtSend.Focused)
-                    //{
-                    _currentChat = _chats[i];
-                    break;
-                    //}
-                }
-            }
+            SetSelected(cmbActiveChats.Text);
         }
 
         private void txtSend_KeyDown(object sender, KeyEventArgs e)
@@ -144,6 +134,28 @@ namespace SkypePop
         private void btnClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void SetSelected(string chatNameToSelect)
+        {
+            for (int i = 1; i < _chats.Count + 1; i++)
+            {
+                string chatName = GetChatName(_chats[i].FriendlyName);
+                if (chatName == chatNameToSelect)
+                {
+                    cmbActiveChats.SelectedIndex = i - 1;
+                    _currentChat = _chats[i];
+                    break;
+                }
+            }
+            FocusOut();
+        }
+
+        private string GetChatName(string chatName)
+        {
+            if (chatName.IndexOf("|") > 0)
+                chatName = chatName.Substring(0, chatName.IndexOf("|") - 1);
+            return chatName;
         }
     }
 }
