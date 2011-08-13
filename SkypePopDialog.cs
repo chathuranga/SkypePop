@@ -30,6 +30,7 @@ namespace SkypePop
             {
                 InitializeComponent();
 
+                SlideDirection = SLIDE_DIRECTION.LEFT;
                 _skype = new Skype();
                 // Use skype protocol version 7 
                 _skype.Attach(7, false);
@@ -42,7 +43,6 @@ namespace SkypePop
                     cmbActiveChats.SelectedIndex = 0;
                 }
 
-                SlideDirection = SLIDE_DIRECTION.LEFT;
                 HookupMouseEnterLeaveEvents(this);
 
                 Updater.CheckUpdates();
@@ -148,6 +148,7 @@ namespace SkypePop
 
         private void SetSelected(string chatNameToSelect)
         {
+            var found = false;
             for (int i = 1; i < _chats.Count + 1; i++)
             {
                 string chatName = GetChatName(_chats[i].FriendlyName);
@@ -155,8 +156,14 @@ namespace SkypePop
                 {
                     cmbActiveChats.SelectedIndex = i - 1;
                     _currentChat = _chats[i];
+                    found = true;
                     break;
                 }
+            }
+            if (!found && _chats.Count > 0)
+            {
+                cmbActiveChats.SelectedIndex = 0;
+                _currentChat = _chats[1];
             }
             FocusOut();
         }
@@ -198,7 +205,6 @@ namespace SkypePop
 
         #endregion
 
-
         #region Handling focus
 
         protected override bool IsInFocus()
@@ -229,7 +235,6 @@ namespace SkypePop
         }
 
         #endregion
-
 
         #region Skype utility methods
 
