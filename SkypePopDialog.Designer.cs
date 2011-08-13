@@ -42,7 +42,7 @@
             // 
             // txtReceived
             // 
-            this.txtReceived.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(222)))), ((int)(((byte)(229)))));
+            this.txtReceived.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(227)))), ((int)(((byte)(187)))));
             this.txtReceived.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtReceived.Location = new System.Drawing.Point(9, 28);
             this.txtReceived.Name = "txtReceived";
@@ -52,7 +52,7 @@
             // 
             // txtSend
             // 
-            this.txtSend.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(241)))), ((int)(((byte)(220)))));
             this.txtSend.Location = new System.Drawing.Point(9, 177);
             this.txtSend.Name = "txtSend";
             this.txtSend.Size = new System.Drawing.Size(335, 20);
@@ -61,7 +61,7 @@
             // 
             // cmbActiveChats
             // 
-            this.cmbActiveChats.BackColor = System.Drawing.Color.SteelBlue;
+            this.cmbActiveChats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(103)))), ((int)(((byte)(48)))));
             this.cmbActiveChats.DropDownHeight = 100;
             this.cmbActiveChats.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbActiveChats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -117,7 +117,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::SlidingHost.Properties.Resources.background;
             this.ClientSize = new System.Drawing.Size(355, 210);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

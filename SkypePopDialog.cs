@@ -14,6 +14,8 @@ namespace SkypePop
         private ChatCollection _chats;
         private bool _colourToggle;
         private Chat _currentChat;
+        private Color _color1 = ColorTranslator.FromHtml("#514124");
+        private Color _color2 = ColorTranslator.FromHtml("#234177");
 
         public SkypePopDialog(Form poOwner, float pfStep)
             : base(poOwner, pfStep)
@@ -39,7 +41,7 @@ namespace SkypePop
                 _currentChat = _chats[1];
             }
         }
-
+        
         public void FocusOut()
         {
             //cmbActiveChats.Focus();
@@ -125,12 +127,12 @@ namespace SkypePop
             if (_colourToggle)
             {
                 _colourToggle = false;
-                return Color.DarkViolet;
+                return _color1;
             }
             else
             {
                 _colourToggle = true;
-                return Color.Firebrick;
+                return _color2;
             }
         }
 
