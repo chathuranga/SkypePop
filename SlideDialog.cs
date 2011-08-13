@@ -19,6 +19,8 @@ namespace SkypePop
 
         #endregion
 
+        private int _autoHideInterval = 5000;
+        protected bool IsMouseOver;
         private bool _bExpand;
 
         protected SLIDE_DIRECTION _eSlideDirection;
@@ -30,12 +32,19 @@ namespace SkypePop
         private SizeF _oStep;
         private IContainer components;
         private Timer timer1;
+        private Timer _autoHideTimer = new Timer();
 
         /// <summary>
         /// Default constructor
         /// </summary>
         public SlideDialog() : this(null, 0)
         {
+        }
+
+
+        void _autoHideTimer_Tick(object sender, EventArgs e)
+        {
+            Slideout();
         }
 
         /// <summary>
@@ -49,6 +58,9 @@ namespace SkypePop
             SlideStep = pfStep;
             if (poOwner != null)
                 Owner = poOwner.Owner;
+
+            _autoHideTimer.Interval = _autoHideInterval;
+            _autoHideTimer.Tick += new EventHandler(_autoHideTimer_Tick);
         }
 
         /// <summary>
@@ -99,7 +111,25 @@ namespace SkypePop
                 Show();
             _oOwner.BringToFront();
             _bExpand = !_bExpand;
+            _autoHideTimer.Enabled = true;
             timer1.Start();
+        }
+
+        private void Slideout()
+        {
+            if (!IsInFocus())
+            {
+                _oOwner.BringToFront();
+                _bExpand = false;
+                timer1.Start();
+                _autoHideTimer.Enabled = false;
+            }
+        }
+        protected virtual bool IsInFocus()
+        {
+            if(IsMouseOver)
+                return true;
+            return false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -198,6 +228,7 @@ namespace SkypePop
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.SuspendLayout();
             // 
             // timer1
             // 
@@ -211,6 +242,8 @@ namespace SkypePop
             this.ControlBox = false;
             this.Name = "SlideDialog";
             this.ShowInTaskbar = false;
+            this.ResumeLayout(false);
+
         }
 
         #endregion

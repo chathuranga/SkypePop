@@ -10,7 +10,6 @@ namespace SkypePop
     public partial class SkypePopDialog : SlideDialog
     {
         #region Private members
-
         private readonly Font _bold = new Font("Consolas", 11f, FontStyle.Bold);
         private readonly Font _regular = new Font("Consolas", 11f, FontStyle.Regular);
         private readonly Skype _skype;
@@ -44,6 +43,8 @@ namespace SkypePop
                 }
 
                 SlideDirection = SLIDE_DIRECTION.LEFT;
+                HookupMouseEnterLeaveEvents(this);
+
                 Updater.CheckUpdates();
             }
             catch (Exception ex)
@@ -51,7 +52,7 @@ namespace SkypePop
                 Utility.HandleException(ex);
             }
         }
-
+        
         #endregion
         
         #region Event handlers
@@ -76,7 +77,7 @@ namespace SkypePop
                 Utility.HandleException(ex);
             }
         }
-
+        
         private void btnHide_Click(object sender, EventArgs e)
         {
             try
@@ -197,6 +198,39 @@ namespace SkypePop
 
         #endregion
 
+
+        #region Handling focus
+
+        protected override bool IsInFocus()
+        {
+            return txtSend.Focused || base.IsInFocus();
+        }
+
+        private void HookupMouseEnterLeaveEvents(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+                childControl.MouseEnter += new EventHandler(childControl_MouseEnter);
+                childControl.MouseLeave += new EventHandler(childControl_MouseLeave);
+
+                // Recurse on this child to get all of its descendents.
+                HookupMouseEnterLeaveEvents(childControl);
+            }
+        }
+
+        private void childControl_MouseLeave(object sender, EventArgs e)
+        {
+            IsMouseOver = false;
+        }
+
+        private void childControl_MouseEnter(object sender, EventArgs e)
+        {
+            IsMouseOver = true;
+        }
+
+        #endregion
+
+
         #region Skype utility methods
 
         private int IndexOf(Chat newChat)
@@ -219,6 +253,6 @@ namespace SkypePop
         }
 
         #endregion
-
+        
     }
 }
