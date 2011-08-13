@@ -90,7 +90,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackgroundImage = global::SlidingHost.Properties.Resources.exit;
+            this.btnClose.BackgroundImage = global::SkypePop.Properties.Resources.exit;
             this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClose.Location = new System.Drawing.Point(333, 2);
@@ -117,7 +117,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.BackgroundImage = global::SlidingHost.Properties.Resources.background;
+            this.BackgroundImage = global::SkypePop.Properties.Resources.background;
             this.ClientSize = new System.Drawing.Size(355, 210);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

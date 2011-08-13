@@ -44,6 +44,7 @@ namespace SkypePop
                 }
 
                 SlideDirection = SLIDE_DIRECTION.LEFT;
+                Updater.CheckUpdates();
             }
             catch (Exception ex)
             {

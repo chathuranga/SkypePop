@@ -16,7 +16,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SlidingHost</RootNamespace>
+    <RootNamespace>SkypePop</RootNamespace>
     <StartupObject />
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -121,6 +121,7 @@
     <Compile Include="SkypePopDialog.Designer.cs">
       <DependentUpon>SkypePopDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Updater.cs" />
     <Compile Include="SliderGrip.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +132,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utility.cs" />
+    <Content Include="SkypePopUpdates.xml" />
     <EmbeddedResource Include="Resources\background.png" />
     <None Include="Resources\exit.png" />
     <Content Include="Resources\hide.png" />
