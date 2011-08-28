@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 using SkypePop;
 
@@ -16,8 +15,8 @@ namespace MySlide
         {
             InitializeComponent();
 
-            //_oSlideForm = new SlidingHost(this, 0.1f);
             _oSlideForm = new SkypePopDialog(this, 0.1f);
+            this.Owner = _oSlideForm;
         }
 
         protected override void Dispose(bool disposing)
@@ -47,10 +46,14 @@ namespace MySlide
         [STAThread]
         public static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             var grip = new SliderGrip();
             Size desktopSize = Screen.PrimaryScreen.WorkingArea.Size;
-            grip.Location = new Point(desktopSize.Width - 2, desktopSize.Height - 210);
+            grip.Location = new Point(desktopSize.Width - 1, desktopSize.Height - 210);
             Application.Run(grip);
+            //var test = new CueTest();
+            //Application.Run(test);
         }
 
         private void SliderGrip_Click(object sender, EventArgs e)

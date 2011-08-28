@@ -14,10 +14,9 @@ namespace SkypePop
         private readonly Font _regular = new Font("Consolas", 11f, FontStyle.Regular);
         private readonly Skype _skype;
         private ChatCollection _chats;
-        private bool _colourToggle;
         private Chat _currentChat;
-        private Color _color1 = ColorTranslator.FromHtml("#514124");
-        private Color _color2 = ColorTranslator.FromHtml("#234177");
+        private Color _color1 = ColorTranslator.FromHtml("#234177");
+        private Color _color2 = ColorTranslator.FromHtml("#514124");
 
         #endregion
 
@@ -63,7 +62,10 @@ namespace SkypePop
             {
                 if (status == TChatMessageStatus.cmsReceived)
                 {
-                    AppendMessage(msg.FromDisplayName, msg.Body);
+                    var chatName = string.Empty;
+                    if (msg.Chat.Members.Count > 2)
+                        chatName = "[" + GetChatName(msg.Chat.FriendlyName) + "]";
+                    AppendMessage(msg.FromDisplayName, chatName, msg.Body);
                     Slide(true);
                     int index = IndexOf(msg.Chat);
                     if (index == -1)
@@ -106,6 +108,7 @@ namespace SkypePop
             try
             {
                 SetSelected(cmbActiveChats.Text);
+                txtSend.Focus();
             }
             catch (Exception ex)
             {
@@ -138,10 +141,22 @@ namespace SkypePop
 
         private void AppendMessage(string from, string message)
         {
-            txtReceived.SelectionColor = GetColor();
+            txtReceived.SelectionColor = _color1;
             txtReceived.SelectionFont = _bold;
             txtReceived.AppendText(from + " : ");
             txtReceived.SelectionFont = _regular;
+            txtReceived.SelectionColor = _color2;
+            txtReceived.AppendText(message + Environment.NewLine);
+            txtReceived.ScrollToCaret();
+        }
+
+        private void AppendMessage(string from, string chatName, string message)
+        {
+            txtReceived.SelectionColor = _color1;
+            txtReceived.SelectionFont = _bold;
+            txtReceived.AppendText(from + chatName + Environment.NewLine);
+            txtReceived.SelectionFont = _regular;
+            txtReceived.SelectionColor = _color2;
             txtReceived.AppendText(message + Environment.NewLine);
             txtReceived.ScrollToCaret();
         }
@@ -160,6 +175,12 @@ namespace SkypePop
                     break;
                 }
             }
+
+            if (found)
+                CueProvider.SetCue(txtSend, "Type a message to " + GetChatName(_currentChat.FriendlyName) + " here");
+            else
+                CueProvider.SetCue(txtSend, "No active chats are running");
+
             if (!found && _chats.Count > 0)
             {
                 cmbActiveChats.SelectedIndex = 0;
@@ -188,21 +209,7 @@ namespace SkypePop
             }
             SetSelected(currentlySelected);
         }
-
-        private Color GetColor()
-        {
-            if (_colourToggle)
-            {
-                _colourToggle = false;
-                return _color1;
-            }
-            else
-            {
-                _colourToggle = true;
-                return _color2;
-            }
-        }
-
+        
         #endregion
 
         #region Handling focus
