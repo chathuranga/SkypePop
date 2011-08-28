@@ -58,6 +58,7 @@
             this.txtSend.Size = new System.Drawing.Size(335, 20);
             this.txtSend.TabIndex = 1;
             this.txtSend.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSend_KeyDown);
+            this.txtSend.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSend_KeyPress);
             // 
             // cmbActiveChats
             // 

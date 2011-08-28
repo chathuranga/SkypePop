@@ -135,6 +135,14 @@ namespace SkypePop
             }
         }
 
+        private void txtSend_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                e.Handled = true;
+            }
+        }
+
         #endregion
         
         #region Private methods
