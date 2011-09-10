@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SkypePopDialog));
             this.txtReceived = new System.Windows.Forms.RichTextBox();
             this.txtSend = new System.Windows.Forms.TextBox();
@@ -35,9 +36,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.btnHide = new System.Windows.Forms.PictureBox();
+            this.context = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.miSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.miExit = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHide)).BeginInit();
+            this.context.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtReceived
@@ -105,6 +111,7 @@
             // 
             this.btnHide.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHide.BackgroundImage")));
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHide.ContextMenuStrip = this.context;
             this.btnHide.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnHide.Location = new System.Drawing.Point(4, 0);
             this.btnHide.Name = "btnHide";
@@ -112,6 +119,34 @@
             this.btnHide.TabIndex = 3;
             this.btnHide.TabStop = false;
             this.btnHide.Click += new System.EventHandler(this.btnHide_Click);
+            // 
+            // context
+            // 
+            this.context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miHide,
+            this.miSettings,
+            this.miExit});
+            this.context.Name = "context";
+            this.context.Size = new System.Drawing.Size(153, 92);
+            // 
+            // miHide
+            // 
+            this.miHide.Name = "miHide";
+            this.miHide.Size = new System.Drawing.Size(152, 22);
+            this.miHide.Text = "Hide";
+            this.miHide.Click += new System.EventHandler(this.miHide_Click);
+            // 
+            // miSettings
+            // 
+            this.miSettings.Name = "miSettings";
+            this.miSettings.Size = new System.Drawing.Size(152, 22);
+            this.miSettings.Text = "Settings";
+            // 
+            // miExit
+            // 
+            this.miExit.Name = "miExit";
+            this.miExit.Size = new System.Drawing.Size(152, 22);
+            this.miExit.Text = "Exit";
             // 
             // SkypePopDialog
             // 
@@ -132,6 +167,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHide)).EndInit();
+            this.context.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -144,6 +180,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox btnHide;
         private System.Windows.Forms.PictureBox btnClose;
+        private System.Windows.Forms.ContextMenuStrip context;
+        private System.Windows.Forms.ToolStripMenuItem miHide;
+        private System.Windows.Forms.ToolStripMenuItem miSettings;
+        private System.Windows.Forms.ToolStripMenuItem miExit;
 
     }
 }

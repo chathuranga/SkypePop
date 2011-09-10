@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using SkypePop;
 
 namespace MySlide
@@ -17,6 +18,13 @@ namespace MySlide
 
             _oSlideForm = new SkypePopDialog(this, 0.1f);
             this.Owner = _oSlideForm;
+            SystemEvents.SessionEnding += new SessionEndingEventHandler(SystemEvents_SessionEnding);
+            _oSlideForm.InitSkype();
+        }
+
+        void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
+        {
+            Application.Exit();
         }
 
         protected override void Dispose(bool disposing)

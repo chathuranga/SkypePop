@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SKYPE4COMLib;
@@ -12,11 +13,12 @@ namespace SkypePop
         #region Private members
         private readonly Font _bold = new Font("Consolas", 11f, FontStyle.Bold);
         private readonly Font _regular = new Font("Consolas", 11f, FontStyle.Regular);
-        private readonly Skype _skype;
+        private Skype _skype;
         private ChatCollection _chats;
         private Chat _currentChat;
         private Color _color1 = ColorTranslator.FromHtml("#234177");
         private Color _color2 = ColorTranslator.FromHtml("#514124");
+        private Timer _skypeReconnectTime;
 
         #endregion
 
@@ -30,21 +32,12 @@ namespace SkypePop
                 InitializeComponent();
 
                 SlideDirection = SLIDE_DIRECTION.LEFT;
-                _skype = new Skype();
-                // Use skype protocol version 7 
-                _skype.Attach(7, false);
-                // Listen 
-                _skype.MessageStatus += skype_MessageStatus;
-                _chats = _skype.ActiveChats;
-                RefreshActiveChats();
-                if (_chats.Count > 0)
-                {
-                    cmbActiveChats.SelectedIndex = 0;
-                }
-
                 HookupMouseEnterLeaveEvents(this);
-
                 Updater.CheckUpdates();
+
+                _skypeReconnectTime = new Timer();
+                _skypeReconnectTime.Interval = 30000;
+                _skypeReconnectTime.Tick += new EventHandler(_skypeReconnectTime_Tick);
             }
             catch (Exception ex)
             {
@@ -84,7 +77,7 @@ namespace SkypePop
         {
             try
             {
-                Slide(false);
+                context.Show(MousePosition.X, MousePosition.Y);
             }
             catch (Exception ex)
             {
@@ -140,6 +133,18 @@ namespace SkypePop
             if (e.KeyChar == 13)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void miHide_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Slide(false);
+            }
+            catch (Exception ex)
+            {
+                Utility.HandleException(ex);
             }
         }
 
@@ -229,6 +234,8 @@ namespace SkypePop
 
         private void HookupMouseEnterLeaveEvents(Control control)
         {
+            context.MouseEnter += new EventHandler(childControl_MouseEnter);
+            context.MouseLeave += new EventHandler(childControl_MouseLeave);
             foreach (Control childControl in control.Controls)
             {
                 childControl.MouseEnter += new EventHandler(childControl_MouseEnter);
@@ -253,6 +260,72 @@ namespace SkypePop
 
         #region Skype utility methods
 
+        public bool InitSkype()
+        {
+            try
+            {
+                if (IsProcessOpen("Skype"))
+                {
+                    _skype = new Skype();
+                    // Use skype protocol version 7 
+                    _skype.Attach(7, false);
+                    // Listen 
+                    _skype.MessageStatus += skype_MessageStatus;
+                    _chats = _skype.ActiveChats;
+                    RefreshActiveChats();
+                    if (_chats.Count > 0)
+                    {
+                        cmbActiveChats.SelectedIndex = 0;
+                    }
+                    return true;
+                }
+                else
+                {
+                    CueProvider.SetCue(txtSend, "Waiting untill Skype starts... ");
+                    _skypeReconnectTime.Enabled = true;
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                CueProvider.SetCue(txtSend, "Waiting untill Skype starts... ");
+                _skypeReconnectTime.Enabled = true;
+                return false;
+            }
+        }
+
+        void _skypeReconnectTime_Tick(object sender, EventArgs e)
+        {
+            if(InitSkype())
+                _skypeReconnectTime.Enabled = false;
+        }
+
+        public bool IsProcessOpen(string name)
+        {
+            //here we're going to get a list of all running processes on
+            //the computer
+            foreach (Process clsProcess in Process.GetProcesses())
+            {
+                //now we're going to see if any of the running processes
+                //match the currently running processes. Be sure to not
+                //add the .exe to the name you provide, i.e: NOTEPAD,
+                //not NOTEPAD.EXE or false is always returned even if
+                //notepad is running.
+                //Remember, if you have the process running more than once,
+                //say IE open 4 times the loop thr way it is now will close all 4,
+                //if you want it to just close the first one it finds
+                //then add a return; after the Kill
+                if (clsProcess.ProcessName== name)
+                {
+                    //if the process is found to be running then we
+                    //return a true
+                    return true;
+                }
+            }
+            //otherwise we return a false
+            return false;
+        }
+        
         private int IndexOf(Chat newChat)
         {
             int index = -1;

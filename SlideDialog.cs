@@ -140,15 +140,23 @@ namespace SkypePop
                 _oOffset += _oStep;
                 if (_fRatio >= 1)
                     timer1.Stop();
+                SetLocation();
+                Opacity = 1;
             }
             else
             {
-                _fRatio -= _fStep;
-                _oOffset -= _oStep;
-                if (_fRatio <= 0)
+                if (_fRatio > 0)
+                {
+                    _fRatio -= _fStep;
+                    _oOffset -= _oStep;
+                }
+                Opacity = Opacity - 0.02;
+                if (_fRatio <= 0 && Equals(Opacity, 0))
+                {
                     timer1.Stop();
+                    SetLocation();
+                }
             }
-            SetLocation();
         }
 
         private void SetLocation()
