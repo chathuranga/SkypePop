@@ -37,7 +37,6 @@
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.btnHide = new System.Windows.Forms.PictureBox();
             this.context = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.miHide = new System.Windows.Forms.ToolStripMenuItem();
             this.miSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.miExit = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
@@ -48,7 +47,7 @@
             // 
             // txtReceived
             // 
-            this.txtReceived.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(227)))), ((int)(((byte)(187)))));
+            this.txtReceived.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(236)))), ((int)(((byte)(243)))));
             this.txtReceived.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtReceived.Location = new System.Drawing.Point(9, 28);
             this.txtReceived.Name = "txtReceived";
@@ -123,30 +122,24 @@
             // context
             // 
             this.context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miHide,
             this.miSettings,
             this.miExit});
             this.context.Name = "context";
-            this.context.Size = new System.Drawing.Size(153, 92);
-            // 
-            // miHide
-            // 
-            this.miHide.Name = "miHide";
-            this.miHide.Size = new System.Drawing.Size(152, 22);
-            this.miHide.Text = "Hide";
-            this.miHide.Click += new System.EventHandler(this.miHide_Click);
+            this.context.Size = new System.Drawing.Size(153, 70);
             // 
             // miSettings
             // 
             this.miSettings.Name = "miSettings";
             this.miSettings.Size = new System.Drawing.Size(152, 22);
             this.miSettings.Text = "Settings";
+            this.miSettings.Click += new System.EventHandler(this.miSettings_Click);
             // 
             // miExit
             // 
             this.miExit.Name = "miExit";
             this.miExit.Size = new System.Drawing.Size(152, 22);
             this.miExit.Text = "Exit";
+            this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
             // SkypePopDialog
             // 
@@ -162,7 +155,7 @@
             this.Name = "SkypePopDialog";
             this.Text = "SkypePopDialog";
             this.TopMost = true;
-            this.TransparencyKey = System.Drawing.Color.Red;
+            this.TransparencyKey = System.Drawing.Color.Gray;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
@@ -181,7 +174,6 @@
         private System.Windows.Forms.PictureBox btnHide;
         private System.Windows.Forms.PictureBox btnClose;
         private System.Windows.Forms.ContextMenuStrip context;
-        private System.Windows.Forms.ToolStripMenuItem miHide;
         private System.Windows.Forms.ToolStripMenuItem miSettings;
         private System.Windows.Forms.ToolStripMenuItem miExit;
 

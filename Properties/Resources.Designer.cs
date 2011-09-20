@@ -80,5 +80,12 @@ namespace SkypePop.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap SkypePop {
+            get {
+                object obj = ResourceManager.GetObject("SkypePop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

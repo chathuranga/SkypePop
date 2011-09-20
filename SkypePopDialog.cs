@@ -49,6 +49,14 @@ namespace SkypePop
         
         #region Event handlers
 
+        void SkypePopDialog_AttachmentStatus(TAttachmentStatus Status)
+        {
+            if (Status == TAttachmentStatus.apiAttachNotAvailable)
+            {
+                InitSkype();
+            }
+        }
+
         private void skype_MessageStatus(ChatMessage msg, TChatMessageStatus status)
         {
             try
@@ -89,7 +97,7 @@ namespace SkypePop
         {
             try
             {
-                Application.Exit();
+                Slide(false);
             }
             catch (Exception ex)
             {
@@ -136,18 +144,24 @@ namespace SkypePop
             }
         }
 
-        private void miHide_Click(object sender, EventArgs e)
+        private void miExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void miSettings_Click(object sender, EventArgs e)
         {
             try
             {
-                Slide(false);
+                var settings = new Settings();
+                settings.ShowDialog(this);
             }
             catch (Exception ex)
             {
                 Utility.HandleException(ex);
             }
         }
-
+        
         #endregion
         
         #region Private methods
@@ -271,6 +285,7 @@ namespace SkypePop
                     _skype.Attach(7, false);
                     // Listen 
                     _skype.MessageStatus += skype_MessageStatus;
+                    ((_ISkypeEvents_Event)_skype).AttachmentStatus += new _ISkypeEvents_AttachmentStatusEventHandler(SkypePopDialog_AttachmentStatus);
                     _chats = _skype.ActiveChats;
                     RefreshActiveChats();
                     if (_chats.Count > 0)
@@ -346,6 +361,6 @@ namespace SkypePop
         }
 
         #endregion
-        
+
     }
 }
