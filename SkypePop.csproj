@@ -128,6 +128,11 @@
     <Compile Include="SkypePopDialog.Designer.cs">
       <DependentUpon>SkypePopDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkypePopSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>SkypePopSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Updater.cs" />
     <Compile Include="SliderGrip.cs">
       <SubType>Form</SubType>
@@ -167,6 +172,10 @@
     <EmbeddedResource Include="SlideDialog.resx">
       <DependentUpon>SlideDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="SkypePopSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>SkypePopSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

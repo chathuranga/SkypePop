@@ -3,15 +3,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using SkypePop;
 
-namespace MySlide
+namespace SkypePop
 {
     public class SliderGrip : Form
     {
         private readonly SkypePopDialog _oSlideForm;
         private readonly Container components;
-
+        
         public SliderGrip()
         {
             InitializeComponent();
@@ -57,16 +56,22 @@ namespace MySlide
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var grip = new SliderGrip();
-            Size desktopSize = Screen.PrimaryScreen.WorkingArea.Size;
-            grip.Location = new Point(desktopSize.Width - 1, desktopSize.Height - 210);
+            RelocateGrip(grip);
             Application.Run(grip);
             //var test = new CueTest();
             //Application.Run(test);
         }
 
+        public static void RelocateGrip(SliderGrip grip)
+        {
+            Size desktopSize = Screen.PrimaryScreen.WorkingArea.Size;
+            var x = (SkypePopSettings.Default.Side == Constants.SideRight) ? (desktopSize.Width - 1) : (-3);
+            grip.Location = new Point(x, desktopSize.Height - SkypePopSettings.Default.yLocation);
+        }
+
         private void SliderGrip_Click(object sender, EventArgs e)
         {
-            _oSlideForm.SlideDirection = SlideDialog.SLIDE_DIRECTION.LEFT;
+            _oSlideForm.SlideDirection = (SkypePopSettings.Default.Side == Constants.SideRight) ? SlideDialog.SLIDE_DIRECTION.LEFT : SlideDialog.SLIDE_DIRECTION.RIGHT;
             _oSlideForm.Slide(false);
             _oSlideForm.Focus();
         }
@@ -94,13 +99,14 @@ namespace MySlide
             this.Name = "SliderGrip";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "SlidingHost";
+            this.Text = "SkypePop";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.White;
             this.Click += new System.EventHandler(this.SliderGrip_Click);
             this.MouseLeave += new System.EventHandler(this.SliderGrip_MouseLeave);
             this.MouseHover += new System.EventHandler(this.SliderGrip_MouseHover);
             this.ResumeLayout(false);
+
         }
 
         #endregion

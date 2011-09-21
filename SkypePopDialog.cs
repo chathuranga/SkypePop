@@ -31,7 +31,7 @@ namespace SkypePop
             {
                 InitializeComponent();
 
-                SlideDirection = SLIDE_DIRECTION.LEFT;
+                SlideDirection = (SkypePopSettings.Default.Side == Constants.SideRight) ? SlideDialog.SLIDE_DIRECTION.LEFT : SlideDialog.SLIDE_DIRECTION.RIGHT; ;
                 HookupMouseEnterLeaveEvents(this);
                 Updater.CheckUpdates();
 

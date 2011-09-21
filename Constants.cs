@@ -2,6 +2,7 @@
 {
     internal class Constants
     {
-        public static string AnyUserName = "Any";
+        public static string SideLeft = "left";
+        public static string SideRight = "right";
     }
 }
