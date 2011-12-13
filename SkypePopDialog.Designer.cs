@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SkypePopDialog));
             this.txtReceived = new System.Windows.Forms.RichTextBox();
             this.txtSend = new System.Windows.Forms.TextBox();
             this.cmbActiveChats = new System.Windows.Forms.ComboBox();
@@ -49,9 +48,9 @@
             // 
             this.txtReceived.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(236)))), ((int)(((byte)(243)))));
             this.txtReceived.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtReceived.Location = new System.Drawing.Point(9, 28);
+            this.txtReceived.Location = new System.Drawing.Point(8, 35);
             this.txtReceived.Name = "txtReceived";
-            this.txtReceived.Size = new System.Drawing.Size(335, 141);
+            this.txtReceived.Size = new System.Drawing.Size(335, 138);
             this.txtReceived.TabIndex = 0;
             this.txtReceived.Text = "";
             // 
@@ -75,9 +74,9 @@
             this.cmbActiveChats.ForeColor = System.Drawing.Color.White;
             this.cmbActiveChats.FormattingEnabled = true;
             this.cmbActiveChats.IntegralHeight = false;
-            this.cmbActiveChats.Location = new System.Drawing.Point(30, 0);
+            this.cmbActiveChats.Location = new System.Drawing.Point(48, 4);
             this.cmbActiveChats.Name = "cmbActiveChats";
-            this.cmbActiveChats.Size = new System.Drawing.Size(301, 21);
+            this.cmbActiveChats.Size = new System.Drawing.Size(275, 21);
             this.cmbActiveChats.TabIndex = 2;
             this.cmbActiveChats.SelectedIndexChanged += new System.EventHandler(this.cmbActiveChats_SelectedIndexChanged);
             // 
@@ -99,7 +98,7 @@
             this.btnClose.BackgroundImage = global::SkypePop.Properties.Resources.exit;
             this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.Location = new System.Drawing.Point(333, 2);
+            this.btnClose.Location = new System.Drawing.Point(328, 6);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(16, 16);
             this.btnClose.TabIndex = 4;
@@ -108,13 +107,12 @@
             // 
             // btnHide
             // 
-            this.btnHide.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHide.BackgroundImage")));
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnHide.ContextMenuStrip = this.context;
             this.btnHide.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHide.Location = new System.Drawing.Point(4, 0);
+            this.btnHide.Location = new System.Drawing.Point(3, 3);
             this.btnHide.Name = "btnHide";
-            this.btnHide.Size = new System.Drawing.Size(15, 21);
+            this.btnHide.Size = new System.Drawing.Size(26, 21);
             this.btnHide.TabIndex = 3;
             this.btnHide.TabStop = false;
             this.btnHide.Click += new System.EventHandler(this.btnHide_Click);
