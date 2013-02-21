@@ -31,13 +31,12 @@ namespace SkypePop
             {
                 InitializeComponent();
 
-                SlideDirection = (SkypePopSettings.Default.Side == Constants.SideRight) ? SlideDialog.SLIDE_DIRECTION.LEFT : SlideDialog.SLIDE_DIRECTION.RIGHT; ;
+                SlideDirection = (SkypePopSettings.Default.Side == Constants.SideRight) ? SLIDE_DIRECTION.LEFT : SLIDE_DIRECTION.RIGHT;
                 HookupMouseEnterLeaveEvents(this);
                 Updater.CheckUpdates();
 
-                _skypeReconnectTime = new Timer();
-                _skypeReconnectTime.Interval = 30000;
-                _skypeReconnectTime.Tick += new EventHandler(_skypeReconnectTime_Tick);
+                _skypeReconnectTime = new Timer {Interval = 30000};
+                _skypeReconnectTime.Tick += _skypeReconnectTime_Tick;
             }
             catch (Exception ex)
             {
@@ -67,7 +66,10 @@ namespace SkypePop
                     if (msg.Chat.Members.Count > 2)
                         chatName = "[" + GetChatName(msg.Chat.FriendlyName) + "]";
                     AppendMessage(msg.FromDisplayName, chatName, msg.Body);
-                    Slide(true);
+                    if (_skype.CurrentUserStatus != TUserStatus.cusDoNotDisturb)
+                    {
+                        Slide(true);
+                    }
                     int index = IndexOf(msg.Chat);
                     if (index == -1)
                     {
