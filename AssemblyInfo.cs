@@ -26,7 +26,7 @@ using System.Reflection;
 // Vous pouvez spécifier toutes les valeurs ou indiquer des numéros de révision et de build par défaut 
 // en utilisant '*', comme ci-dessous :
 
-[assembly: AssemblyVersion("1.0.3")]
+[assembly: AssemblyVersion("1.0.2")]
 
 //
 // Pour signer votre assembly, vous devez spécifier la clé à utiliser. Consultez 
